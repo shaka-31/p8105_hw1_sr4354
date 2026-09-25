@@ -21,3 +21,33 @@ ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)
 ggsave("flipper_vs_bill.png")
 ```
 
+## problem 2
+
+```{r}
+normal_sample = rnorm(10)
+is_positive = normal_sample > 0
+flowers_vec = c("lotus", "jasmine", "rose", "lily", "daffodil", "pansy", "sunflower", "marigold", "poppy", "peony")
+frequency_factor = factor(c("rarely", "sometimes", "always", "rarely", "sometimes", "always", "rarely", "sometimes", "always", "rarely"))
+
+my_df = data.frame(
+  normal_sample = normal_sample,
+  is_positive = is_positive,
+  flowers_vec = flowers_vec,
+  frequency_factor = frequency_factor
+)
+```
+
+```{r}
+my_df |> pull(normal_sample) |> mean()
+my_df |> pull(is_positive) |> mean()
+my_df |> pull(flowers_vec) |> mean()
+my_df |> pull(frequency_factor) |> mean()
+```
+
+```{r, eval=FALSE}
+as.numeric(my_df$is_positive)
+as.numeric(my_df$flowers_vec)
+as.numeric(my_df$frequency_factor)
+```
+
+For is_positive, TRUE becomes 1 and FALSE becomes 0, so taking the mean gives a meaningful number (the proportion of TRUE values). For flowers_vec, R cannot coerce words into numbers, so every value becomes NA. For frequency_factor, as.numeric() doesn't say anything meaningful about the frequencies because it assigns numbers to the levels based on alphabetical order, so the mean could not be calculated.
